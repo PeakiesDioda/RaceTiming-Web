@@ -2,9 +2,24 @@
   "trainingId": 1,
   "trainingName": "Skikemp",
   "trainingDate": "2026-01-06",
-  "lastUpdate": "2026-01-07 16:46:14",
-  "totalCompetitors": 7,
+  "lastUpdate": "2026-01-07 16:58:00",
+  "totalCompetitors": 8,
   "results": [
+    {
+      "position": 8,
+      "startNumber": "3",
+      "firstName": "Marie",
+      "lastName": "Dvo��kov�",
+      "yearOfBirth": null,
+      "club": "SK Slavia",
+      "category": "�eny",
+      "startTime": "16:57:45.512",
+      "finishTime": "16:57:51.792",
+      "totalTimeMs": 6280,
+      "totalTime": "00:06.28",
+      "status": "NotFinished",
+      "confirmedAt": 31
+    },
     {
       "position": 5,
       "startNumber": "2",
