@@ -1,1 +1,1 @@
-[{"position":1,"startNumber":"1","startTime":"23:31:32.612","finishTime":"23:31:38.459","totalTimeMs":5847,"totalTime":"00:05.84","status":"NotFinished","confirmedAt":2,"isConfirmed":true}]
+[{"position":2,"startNumber":"2","startTime":"23:31:34.228","finishTime":"23:32:01.643","totalTimeMs":27414,"totalTime":"00:27.41","status":"DSQ","confirmedAt":3,"isConfirmed":true},{"position":1,"startNumber":"1","startTime":"23:31:32.612","finishTime":"23:31:38.459","totalTimeMs":5847,"totalTime":"00:05.84","status":"DNS","confirmedAt":2,"isConfirmed":true}]
