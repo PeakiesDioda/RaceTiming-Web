@@ -5,272 +5,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Race Timing - Výsledky</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body { 
-            font-family: Arial, sans-serif; 
-            max-width: 1400px; 
-            margin: 0 auto; 
-            padding: 10px;
-            background-color: #f5f5f5;
-        }
-        
-        h1 { 
-            color: #333; 
-            font-size: 1.8em;
-            margin-bottom: 10px;
-        }
-        
-        h2 {
-            color: #555;
-            font-size: 1.3em;
-            margin: 10px 0;
-        }
-        
-        .info {
-            background: white;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .info p {
-            margin: 5px 0;
-            color: #666;
-        }
-        
-        .filter-container {
-            background: white;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .filter-container label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #333;
-        }
-        
-        .filter-container input {
-            width: 100%;
-            max-width: 300px;
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        
-        .filter-container input:focus {
-            outline: none;
-            border-color: #4CAF50;
-        }
-        
-        .loading { 
-            text-align: center; 
-            padding: 40px;
-            color: #666;
-            font-size: 1.2em;
-        }
-        
-        .results-container {
-            background: white;
-            border-radius: 5px;
-            overflow-x: auto;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        table { 
-            width: 100%; 
-            border-collapse: collapse;
-            min-width: 600px;
-        }
-        
-        th, td { 
-            padding: 12px 8px;
-            text-align: left;       
-            border-bottom: 1px solid #ddd;
-        }
-        
-        th { 
-            background-color: #4CAF50;
-            color: white;
-            font-weight: bold;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-        
-        tr:hover { 
-            background-color: #f5f5f5; 
-        }
-        
-        tr:nth-child(even) {
-            background-color: #fafafa;
-        }
-        
-        .position {
-            font-weight: bold;
-            color: #4CAF50;
-        }
-        
-        .no-results {
-            text-align: center;
-            padding: 40px;
-            color: #999;
-            font-style: italic;
-        }
-        
-        /* Column visibility priorities */
-        .col-start-time { }        /* Hide 4th - Čas startu */
-        .col-club { }              /* Hide 3rd - Klub */
-        .col-category { }          /* Hide 2nd - Kategorie */
-        .col-year { }              /* Hide 1st - Rok narození */
-        
-        /* Tablet - hide start time (1st to hide) */
-        @media (max-width: 1024px) {
-            h1 { font-size: 1.6em; }
-            h2 { font-size: 1.2em; }
-            table { font-size: 14px; min-width: 500px; }
-            th, td { padding: 10px 6px; }
-            
-            .col-start-time {
-                display: none;
-            }
-        }
-        
-        /* Tablet small - hide club (2nd to hide) */
-        @media (max-width: 900px) {
-            table { min-width: 450px; }
-            .col-club {
-                display: none;
-            }
-        }
-        
-        /* Mobile - hide category (3rd to hide) */
-        @media (max-width: 768px) {
-            h1 { font-size: 1.5em; }
-            h2 { font-size: 1.1em; }
-            table { font-size: 13px; min-width: 400px; }
-            th, td { padding: 8px 4px; }
-            
-            .col-category {
-                display: none;
-            }
-        }
-        
-        /* Mobile small - hide year of birth (4th to hide) */
-        @media (max-width: 600px) {
-            body { padding: 5px; }
-            h1 { font-size: 1.3em; }
-            table { font-size: 12px; min-width: 320px; }
-            th, td { padding: 6px 3px; }
-            
-            .col-year {
-                display: none;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; max-width: 1400px; margin: 0 auto; padding: 10px; background-color: #f5f5f5; }
+        h1 { color: #333; font-size: 1.8em; margin-bottom: 10px; }
+        h2 { color: #555; font-size: 1.3em; margin: 10px 0; }
+        .info { background: white; padding: 15px; border-radius: 5px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .info p { margin: 5px 0; color: #666; }
+        .filter-container { background: white; padding: 15px; border-radius: 5px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .filter-container label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
+        .filter-container input { width: 100%; max-width: 300px; padding: 10px; border: 2px solid #ddd; border-radius: 5px; font-size: 16px; }
+        .filter-container input:focus { outline: none; border-color: #4CAF50; }
+        .loading { text-align: center; padding: 40px; color: #666; font-size: 1.2em; }
+        .results-container { background: white; border-radius: 5px; overflow-x: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        th, td { padding: 12px 8px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #4CAF50; color: white; font-weight: bold; position: sticky; top: 0; z-index: 10; }
+        tr:hover { background-color: #f5f5f5; }
+        tr:nth-child(even) { background-color: #fafafa; }
+        .no-results { text-align: center; padding: 40px; color: #999; font-style: italic; }
+        .col-start-time { } .col-club { } .col-category { } .col-year { }
+        @media (max-width: 1024px) { h1 { font-size: 1.6em; } table { font-size: 14px; } .col-start-time { display: none; } }
+        @media (max-width: 900px) { .col-club { display: none; } }
+        @media (max-width: 768px) { table { font-size: 13px; } .col-category { display: none; } }
+        @media (max-width: 600px) { table { font-size: 12px; } .col-year { display: none; } }
     </style>
 </head>
 <body>
     <h1>?? Race Timing - Výsledky</h1>
-    
     <div class="info">
-        <h2 id="race-title"></h2>
+        <h2 id="race-title">Načítání...</h2>
         <p>?? <strong>Celkem závodníků:</strong> <span id="total-competitors">0</span></p>
         <p>?? <strong>Poslední aktualizace:</strong> <span id="last-update">-</span></p>
     </div>
-    
     <div class="filter-container">
         <label for="filter-input">?? Hledat podle startovního čísla:</label>
-        <input 
-            type="text" 
-            id="filter-input" 
-            placeholder="Zadejte startovní číslo..."
-            autocomplete="off">
+        <input type="text" id="filter-input" placeholder="Zadejte startovní číslo..." autocomplete="off">
     </div>
-    
     <div id="content" class="loading">Načítání výsledků...</div>
-    
     <script>
-        let allResults = [];
+        let trainingData = null;
+        let competitorsMap = new Map();
+        let resultsData = [];
         let currentFilter = '';
         
         async function loadResults() {
             try {
-                const response = await fetch('data/latest.json?' + Date.now());
-                const data = await response.json();
+                const ts = Date.now();
+                // Load all three JSON files in parallel
+                const [training, competitors, results] = await Promise.all([
+                    fetch('data/training.json?' + ts).then(r => r.json()),
+                    fetch('data/competitors.json?' + ts).then(r => r.json()),
+                    fetch('data/results.json?' + ts).then(r => r.json())
+                ]);
                 
-                allResults = data.results || [];
+                trainingData = training;
+                resultsData = results;
                 
-                // Update header info
-                document.getElementById('race-title').textContent = data.trainingName + ' - ' + data.trainingDate;
-                document.getElementById('total-competitors').textContent = data.totalCompetitors;
-                document.getElementById('last-update').textContent = data.lastUpdate;
+                // Build competitors map for fast lookup
+                competitorsMap.clear();
+                competitors.forEach(c => competitorsMap.set(c.startNumber, c));
                 
-                // Display results
+                // Update header
+                document.getElementById('race-title').textContent = training.trainingName + ' - ' + training.trainingDate;
+                document.getElementById('total-competitors').textContent = training.totalCompetitors;
+                document.getElementById('last-update').textContent = training.lastUpdate;
+                
                 displayResults();
             } catch (error) {
-                document.getElementById('content').innerHTML = 
-                    '<div class="no-results">? Chyba při načítání výsledků: ' + error.message + '</div>';
+                document.getElementById('content').innerHTML = '<div class="no-results">? Chyba: ' + error.message + '</div>';
             }
-        }
-        
-        function formatStartTime(startTime) {
-            if (!startTime) return '-';
-            // Extract hours and minutes from HH:mm:ss.fff format
-            const parts = startTime.split(':');
-            if (parts.length >= 2) {
-                return parts[0] + ':' + parts[1];
-            }
-            return startTime;
         }
         
         function displayResults() {
             const container = document.getElementById('content');
+            let filtered = currentFilter 
+                ? resultsData.filter(r => r.startNumber.toLowerCase().includes(currentFilter.toLowerCase()))
+                : resultsData;
             
-            // Filter results by start number if filter is active
-            let filteredResults = allResults;
-            if (currentFilter) {
-                filteredResults = allResults.filter(r => 
-                    r.startNumber.toLowerCase().includes(currentFilter.toLowerCase())
-                );
-            }
-            
-            if (filteredResults.length === 0) {
-                container.innerHTML = '<div class="no-results">?? Žádné výsledky nenalezeny</div>';
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="no-results">?? Žádné výsledky</div>';
                 return;
             }
             
-            let html = '<div class="results-container"><table>';
-            html += '<thead><tr>';
-            html += '<th>Start. č.</th>';
-            html += '<th>Příjmení</th>';
-            html += '<th>Jméno</th>';
-            html += '<th class="col-year">Ročník</th>';
-            html += '<th class="col-club">Klub</th>';
-            html += '<th class="col-category">Kategorie</th>';
-            html += '<th>Výsl. čas</th>';
-            html += '<th class="col-start-time">Čas startu</th>';
+            let html = '<div class="results-container"><table><thead><tr>';
+            html += '<th>Start. č.</th><th>Příjmení</th><th>Jméno</th>';
+            html += '<th class="col-year">Ročník</th><th class="col-club">Klub</th><th class="col-category">Kategorie</th>';
+            html += '<th>Výsl. čas</th><th class="col-start-time">Čas startu</th>';
             html += '</tr></thead><tbody>';
             
-            filteredResults.forEach(r => {
-                html += '<tr>';
-                html += '<td>' + r.startNumber + '</td>';
-                html += '<td><strong>' + r.lastName + '</strong></td>';
-                html += '<td>' + r.firstName + '</td>';
-                html += '<td class="col-year">' + (r.yearOfBirth || '-') + '</td>';
-                html += '<td class="col-club">' + (r.club || '-') + '</td>';
-                html += '<td class="col-category">' + (r.category || '-') + '</td>';
+            filtered.forEach(r => {
+                const c = competitorsMap.get(r.startNumber) || {};
+                html += '<tr><td>' + r.startNumber + '</td>';
+                html += '<td><strong>' + (c.lastName || '') + '</strong></td>';
+                html += '<td>' + (c.firstName || '') + '</td>';
+                html += '<td class="col-year">' + (c.yearOfBirth || '-') + '</td>';
+                html += '<td class="col-club">' + (c.club || '-') + '</td>';
+                html += '<td class="col-category">' + (c.category || '-') + '</td>';
                 html += '<td><strong>' + r.totalTime + '</strong></td>';
-                html += '<td class="col-start-time">' + formatStartTime(r.startTime) + '</td>';
+                html += '<td class="col-start-time">' + (r.startTime ? r.startTime.substring(0,5) : '-') + '</td>';
                 html += '</tr>';
             });
             
@@ -278,16 +110,12 @@
             container.innerHTML = html;
         }
         
-        // Filter event listener
-        document.getElementById('filter-input').addEventListener('input', (e) => {
+        document.getElementById('filter-input').addEventListener('input', e => {
             currentFilter = e.target.value.trim();
             displayResults();
         });
         
-        // Initial load
         loadResults();
-        
-        // Auto-refresh every 30 seconds
         setInterval(loadResults, 30000);
     </script>
 </body>
