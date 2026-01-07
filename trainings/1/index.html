@@ -9,7 +9,7 @@
         body { font-family: Arial, sans-serif; max-width: 1400px; margin: 0 auto; padding: 10px; background-color: #f5f5f5; }
         .back-link { display: inline-block; margin-bottom: 15px; padding: 8px 16px; background: #4CAF50; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; transition: background 0.2s; }
         .back-link:hover { background: #45a049; }
-        h2 { color: #333; font-size: 1.4em; margin-bottom: 10px; }
+        h2 { color: #333; font-size: 1.2em; margin-bottom: 10px; }
         .info { background: white; padding: 15px; border-radius: 5px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .info p { margin: 5px 0; color: #666; }
         .filter-container { background: white; padding: 15px; border-radius: 5px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
@@ -45,6 +45,7 @@
     <a href="../../index.html" class="back-link">&#8592; Zpět na seznam tréninků</a>
     <div class="info">
         <h2 id="race-title">Načítání...</h2>
+        <p id="race-date"></p>
         <p>&#128101; <strong>Celkem závodníků:</strong> <span id="total-competitors">0</span></p>
         <p>&#128338; <strong>Poslední aktualizace:</strong> <span id="last-update">-</span></p>
     </div>
@@ -86,7 +87,8 @@
                 resultsData = results;
                 competitorsMap.clear();
                 competitors.forEach(c => competitorsMap.set(c.startNumber, c));
-                document.getElementById('race-title').innerHTML = '&#127937; ' + training.trainingName + ' - ' + formatDate(training.trainingDate);
+                document.getElementById('race-title').innerHTML = '&#127937; ' + training.trainingName;
+                document.getElementById('race-date').innerHTML = '&#128197; <strong>' + formatDate(training.trainingDate) + '</strong>';
                 document.getElementById('total-competitors').textContent = competitors.length;
                 document.getElementById('last-update').textContent = current.lastUpdate;
                 displayResults();
@@ -116,7 +118,7 @@
                     if (filesToUpdate.includes('competitors.json')) {
                         loadPromises.push(fetch('competitors.json?' + ts).then(r => r.json()).then(data => {
                             competitorsMap.clear();
-                            data.forEach(c => competitorsMap.set(c.StartNumber, c));
+                            data.forEach(c => competitorsMap.set(c.startNumber, c));
                             document.getElementById('total-competitors').textContent = data.length;
                         }));
                     }
@@ -124,7 +126,8 @@
                         loadPromises.push(fetch('results.json?' + ts).then(r => r.json()).then(data => { resultsData = data; }));
                     }
                     await Promise.all(loadPromises);
-                    document.getElementById('race-title').innerHTML = '&#127937; ' + trainingData.trainingName + ' - ' + formatDate(trainingData.trainingDate);
+                    document.getElementById('race-title').innerHTML = '&#127937; ' + trainingData.trainingName;
+                    document.getElementById('race-date').innerHTML = '&#128197; <strong>' + formatDate(trainingData.trainingDate) + '</strong>';
                     document.getElementById('last-update').textContent = current.lastUpdate;
                     displayResults();
                 }
