@@ -17,7 +17,8 @@
         .filter-container input { width: 100%; max-width: 300px; padding: 10px; border: 2px solid #ddd; border-radius: 5px; font-size: 16px; }
         .filter-container input:focus { outline: none; border-color: #4CAF50; }
         .loading { text-align: center; padding: 40px; color: #666; font-size: 1.2em; }
-        .results-container { background: white; border-radius: 5px; overflow-x: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .results-container { background: white; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .table-wrapper { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; min-width: 600px; }
         th, td { padding: 12px 8px; text-align: left; border-bottom: 1px solid #ddd; }
         th { background-color: #4CAF50; color: white; font-weight: bold; position: sticky; top: 0; z-index: 10; }
@@ -111,7 +112,7 @@
                     if (filesToUpdate.includes('competitors.json')) {
                         loadPromises.push(fetch('competitors.json?' + ts).then(r => r.json()).then(data => {
                             competitorsMap.clear();
-                            data.forEach(c => competitorsMap.set(c.startNumber, c));
+                            data.forEach(c => competitorsMap.set(c.StartNumber, c));
                             document.getElementById('total-competitors').textContent = data.length;
                         }));
                     }
@@ -158,7 +159,7 @@
                 container.innerHTML = '<div class="no-results">&#10060; Žádné výsledky</div>';
                 return;
             }
-            let html = '<div class="results-container"><table><thead><tr>';
+            let html = '<div class="results-container"><div class="table-wrapper"><table><thead><tr>';
             html += '<th>Start. č.</th><th>Příjmení</th><th>Jméno</th>';
             html += '<th class="col-year">Ročník</th><th class="col-club">Klub</th><th class="col-category">Kategorie</th>';
             html += '<th>Výsl. čas</th><th class="col-start-time">Čas startu</th>';
@@ -177,7 +178,7 @@
                 html += '<td class="col-start-time">' + (r.startTime ? r.startTime.substring(0,8) : '&#9201;') + '</td>';
                 html += '</tr>';
             });
-            html += '</tbody></table></div>';
+            html += '</tbody></table></div></div>';
             container.innerHTML = html;
         }
         
