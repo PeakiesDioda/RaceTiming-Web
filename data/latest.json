@@ -2,8 +2,8 @@
   "trainingId": 1,
   "trainingName": "Skikemp",
   "trainingDate": "2026-01-06",
-  "lastUpdate": "2026-01-07 13:38:40",
-  "totalCompetitors": 21,
+  "lastUpdate": "2026-01-07 13:40:00",
+  "totalCompetitors": 22,
   "results": [
     {
       "position": 1,
@@ -150,6 +150,19 @@
     },
     {
       "position": 12,
+      "startNumber": "5",
+      "firstName": "Tom�",
+      "lastName": "Proch�zka",
+      "club": "SK B�ci Praha",
+      "category": "Junior",
+      "startTime": "21:55:50.493",
+      "finishTime": "21:56:05.957",
+      "totalTimeMs": 15464,
+      "totalTime": "00:15.46",
+      "status": "NotFinished"
+    },
+    {
+      "position": 13,
       "startNumber": "2",
       "firstName": "Petr",
       "lastName": "Svoboda",
@@ -162,7 +175,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 13,
+      "position": 14,
       "startNumber": "3",
       "firstName": "Marie",
       "lastName": "Dvo��kov�",
@@ -175,7 +188,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 14,
+      "position": 15,
       "startNumber": "5",
       "firstName": "Tom�",
       "lastName": "Proch�zka",
@@ -188,7 +201,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 15,
+      "position": 16,
       "startNumber": "2",
       "firstName": "Petr",
       "lastName": "Svoboda",
@@ -201,7 +214,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 16,
+      "position": 17,
       "startNumber": "4",
       "firstName": "Jana",
       "lastName": "Novotn�",
@@ -214,7 +227,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 17,
+      "position": 18,
       "startNumber": "3",
       "firstName": "Marie",
       "lastName": "Dvo��kov�",
@@ -227,7 +240,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 18,
+      "position": 19,
       "startNumber": "1",
       "firstName": "Jan",
       "lastName": "Nov�k",
@@ -240,7 +253,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 19,
+      "position": 20,
       "startNumber": "4",
       "firstName": "Jana",
       "lastName": "Novotn�",
@@ -253,7 +266,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 20,
+      "position": 21,
       "startNumber": "3",
       "firstName": "Marie",
       "lastName": "Dvo��kov�",
@@ -266,7 +279,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 21,
+      "position": 22,
       "startNumber": "4",
       "firstName": "Jana",
       "lastName": "Novotn�",
