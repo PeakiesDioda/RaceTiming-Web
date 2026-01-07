@@ -47,11 +47,18 @@
         let competitorsMap = new Map();
         let resultsData = [];
         let currentFilter = '';
+        let cachedTimestamps = {};
         
-        async function loadResults() {
+        async function loadInitialData() {
             try {
                 const ts = Date.now();
-                // Load all three JSON files in parallel
+                // Load current.json first to get metadata
+                const current = await fetch('data/current.json?' + ts).then(r => r.json());
+                
+                // Cache timestamps
+                cachedTimestamps = current.files || {};
+                
+                // Load all data files in parallel
                 const [training, competitors, results] = await Promise.all([
                     fetch('data/training.json?' + ts).then(r => r.json()),
                     fetch('data/competitors.json?' + ts).then(r => r.json()),
@@ -61,19 +68,88 @@
                 trainingData = training;
                 resultsData = results;
                 
-                // Build competitors map for fast lookup
+                // Build competitors map
                 competitorsMap.clear();
                 competitors.forEach(c => competitorsMap.set(c.startNumber, c));
                 
-                // Update header
-                document.getElementById('race-title').textContent = training.trainingName + ' - ' + training.trainingDate;
-                document.getElementById('total-competitors').textContent = training.totalCompetitors;
-                document.getElementById('last-update').textContent = training.lastUpdate;
+                // Update header from current.json
+                document.getElementById('race-title').textContent = current.trainingName + ' - ' + training.trainingDate;
+                document.getElementById('total-competitors').textContent = current.totalCompetitors;
+                document.getElementById('last-update').textContent = current.lastUpdate;
                 
                 displayResults();
+                
+                // Start polling for updates
+                startPolling();
             } catch (error) {
                 document.getElementById('content').innerHTML = '<div class="no-results">? Chyba: ' + error.message + '</div>';
+                // Retry after 5 seconds
+                setTimeout(loadInitialData, 5000);
             }
+        }
+        
+        async function checkForUpdates() {
+            try {
+                const ts = Date.now();
+                const current = await fetch('data/current.json?' + ts).then(r => r.json());
+                
+                const filesToUpdate = [];
+                
+                // Check which files have been updated
+                for (const [file, timestamp] of Object.entries(current.files || {})) {
+                    if (cachedTimestamps[file] !== timestamp) {
+                        filesToUpdate.push(file);
+                        cachedTimestamps[file] = timestamp;
+                    }
+                }
+                
+                // Load updated files
+                if (filesToUpdate.length > 0) {
+                    const loadPromises = [];
+                    
+                    if (filesToUpdate.includes('training.json')) {
+                        loadPromises.push(
+                            fetch('data/training.json?' + ts).then(r => r.json()).then(data => {
+                                trainingData = data;
+                            })
+                        );
+                    }
+                    
+                    if (filesToUpdate.includes('competitors.json')) {
+                        loadPromises.push(
+                            fetch('data/competitors.json?' + ts).then(r => r.json()).then(data => {
+                                competitorsMap.clear();
+                                data.forEach(c => competitorsMap.set(c.startNumber, c));
+                            })
+                        );
+                    }
+                    
+                    if (filesToUpdate.includes('results.json')) {
+                        loadPromises.push(
+                            fetch('data/results.json?' + ts).then(r => r.json()).then(data => {
+                                resultsData = data;
+                            })
+                        );
+                    }
+                    
+                    await Promise.all(loadPromises);
+                    
+                    // Update header
+                    document.getElementById('race-title').textContent = current.trainingName + ' - ' + trainingData.trainingDate;
+                    document.getElementById('total-competitors').textContent = current.totalCompetitors;
+                    document.getElementById('last-update').textContent = current.lastUpdate;
+                    
+                    // Refresh display
+                    displayResults();
+                }
+            } catch (error) {
+                console.error('Update check failed:', error);
+            }
+        }
+        
+        function startPolling() {
+            // Check for updates every 5 seconds
+            setInterval(checkForUpdates, 5000);
         }
         
         function displayResults() {
@@ -115,8 +191,8 @@
             displayResults();
         });
         
-        loadResults();
-        setInterval(loadResults, 30000);
+        // Start loading
+        loadInitialData();
     </script>
 </body>
 </html>
