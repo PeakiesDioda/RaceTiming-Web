@@ -12,9 +12,9 @@
         h2 { color: #333; font-size: 1.2em; margin-bottom: 10px; }
         .info { background: white; padding: 15px; border-radius: 5px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .info p { margin: 5px 0; color: #666; }
-        .filter-container { background: white; padding: 15px; border-radius: 5px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .filter-container label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
-        .filter-container input { width: 100%; max-width: 300px; padding: 10px; border: 2px solid #ddd; border-radius: 5px; font-size: 16px; }
+        .filter-container { background: white; padding: 15px; border-radius: 5px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 10px; }
+        .filter-container label { margin: 0; font-weight: bold; color: #333; white-space: nowrap; }
+        .filter-container input { flex: 1; max-width: 300px; padding: 10px; border: 2px solid #ddd; border-radius: 5px; font-size: 16px; }
         .filter-container input:focus { outline: none; border-color: #4CAF50; }
         .loading { text-align: center; padding: 5px 0; color: #666; font-size: 1.2em; }
         .results-container { background: white; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); overflow: hidden; }
@@ -50,7 +50,7 @@
         <p>&#128338; <strong>Poslední aktualizace:</strong> <span id="last-update">-</span></p>
     </div>
     <div class="filter-container">
-        <label for="filter-input">&#128269; Hledat podle startovního čísla:</label>
+        <label for="filter-input">&#128269; Filtr startovního čísla:</label>
         <input type="text" id="filter-input" placeholder="Zadejte startovní číslo..." autocomplete="off">
     </div>
     <div id="content" class="loading">Načítání výsledků...</div>
