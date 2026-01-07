@@ -9,8 +9,7 @@
         body { font-family: Arial, sans-serif; max-width: 1400px; margin: 0 auto; padding: 10px; background-color: #f5f5f5; }
         .back-link { display: inline-block; margin-bottom: 15px; padding: 8px 16px; background: #4CAF50; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; transition: background 0.2s; }
         .back-link:hover { background: #45a049; }
-        h1 { color: #333; font-size: 1.8em; margin-bottom: 10px; }
-        h2 { color: #333; font-size: 1.5em; margin-bottom: 10px; }
+        h2 { color: #333; font-size: 1.8em; margin-bottom: 10px; }
         .info { background: white; padding: 15px; border-radius: 5px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .info p { margin: 5px 0; color: #666; }
         .filter-container { background: white; padding: 15px; border-radius: 5px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
@@ -31,7 +30,7 @@
         @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0.3; } }
         .clock-icon { animation: blink 1.5s infinite; font-size: 1.2em; }
         .col-start-time { } .col-club { } .col-category { } .col-year { }
-        @media (max-width: 1024px) { h1 { font-size: 1.6em; } table { font-size: 14px; } .col-start-time { display: none; } }
+        @media (max-width: 1024px) { table { font-size: 14px; } .col-start-time { display: none; } }
         @media (max-width: 900px) { .col-club { display: none; } }
         @media (max-width: 768px) { table { font-size: 13px; } .col-category { display: none; } }
         @media (max-width: 600px) { table { font-size: 12px; } .col-year { display: none; } }
@@ -39,7 +38,6 @@
 </head>
 <body>
     <a href="../../index.html" class="back-link">&#8592; Zpět na seznam tréninků</a>
-    <h1>&#127937; Race Timing - Výsledky</h1>
     <div class="info">
         <h2 id="race-title">Načítání...</h2>
         <p>&#128101; <strong>Celkem závodníků:</strong> <span id="total-competitors">0</span></p>
@@ -83,7 +81,7 @@
                 resultsData = results;
                 competitorsMap.clear();
                 competitors.forEach(c => competitorsMap.set(c.startNumber, c));
-                document.getElementById('race-title').textContent = training.trainingName + ' - ' + formatDate(training.trainingDate);
+                document.getElementById('race-title').innerHTML = '&#127937; ' + training.trainingName + ' - ' + formatDate(training.trainingDate);
                 document.getElementById('total-competitors').textContent = competitors.length;
                 document.getElementById('last-update').textContent = current.lastUpdate;
                 displayResults();
@@ -121,7 +119,7 @@
                         loadPromises.push(fetch('results.json?' + ts).then(r => r.json()).then(data => { resultsData = data; }));
                     }
                     await Promise.all(loadPromises);
-                    document.getElementById('race-title').textContent = trainingData.trainingName + ' - ' + formatDate(trainingData.trainingDate);
+                    document.getElementById('race-title').innerHTML = '&#127937; ' + trainingData.trainingName + ' - ' + formatDate(trainingData.trainingDate);
                     document.getElementById('last-update').textContent = current.lastUpdate;
                     displayResults();
                 }

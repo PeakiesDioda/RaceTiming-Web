@@ -18,16 +18,16 @@
     </style>
 </head>
 <body>
-    <h1>?? Race Timing - Seznam tréninků</h1>
+    <h1>&#127937; Race Timing - Seznam tréninků</h1>
     <div id="trainings-container"></div>
     <script>
-        const trainings = [{"id":1,"name":"Lipno SkiCamp dopoledne","date":"2026-01-07","lastUpdate":"2026-01-07 23:21:27"}];
+        const trainings = [{"id":1,"name":"Lipno SkiCamp dopoledne","date":"2026-01-07","lastUpdate":"2026-01-07 23:30:02"}];
         
         function displayTrainings() {
             const container = document.getElementById('trainings-container');
             
             if (trainings.length === 0) {
-                container.innerHTML = '<div class="no-trainings">?? Zatím nejsou žádné tréninky</div>';
+                container.innerHTML = '<div class="no-trainings">&#128221; Zatím nejsou žádné tréninky</div>';
                 return;
             }
             
@@ -35,8 +35,8 @@
                 trainings.map(t => `
                     <div class="training-card" onclick="window.location.href='trainings/${t.id}/'">
                         <div class="training-name">${t.name}</div>
-                        <div class="training-date">?? ${t.date}</div>
-                        <div class="training-update">?? Aktualizováno: ${t.lastUpdate}</div>
+                        <div class="training-date">&#128197; ${t.date}</div>
+                        <div class="training-update">&#128338; Aktualizováno: ${t.lastUpdate}</div>
                     </div>
                 `).join('') +
             '</div>';
