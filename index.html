@@ -23,6 +23,11 @@
         tr:hover { background-color: #f5f5f5; }
         tr:nth-child(even) { background-color: #fafafa; }
         .no-results { text-align: center; padding: 40px; color: #999; font-style: italic; }
+        .row-ongoing { color: #2E7D32; }
+        .row-confirmed { color: #000; }
+        .row-dnf, .row-dns, .row-dsq { color: #D32F2F; }
+        @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0.3; } }
+        .clock-icon { animation: blink 1.5s infinite; font-size: 1.2em; }
         .col-start-time { } .col-club { } .col-category { } .col-year { }
         @media (max-width: 1024px) { h1 { font-size: 1.6em; } table { font-size: 14px; } .col-start-time { display: none; } }
         @media (max-width: 900px) { .col-club { display: none; } }
@@ -52,38 +57,24 @@
         async function loadInitialData() {
             try {
                 const ts = Date.now();
-                // Load current.json first to get metadata
                 const current = await fetch('data/current.json?' + ts).then(r => r.json());
-                
-                // Cache timestamps
                 cachedTimestamps = current.files || {};
-                
-                // Load all data files in parallel
                 const [training, competitors, results] = await Promise.all([
                     fetch('data/training.json?' + ts).then(r => r.json()),
                     fetch('data/competitors.json?' + ts).then(r => r.json()),
                     fetch('data/results.json?' + ts).then(r => r.json())
                 ]);
-                
                 trainingData = training;
                 resultsData = results;
-                
-                // Build competitors map
                 competitorsMap.clear();
                 competitors.forEach(c => competitorsMap.set(c.startNumber, c));
-                
-                // Update header from current.json
                 document.getElementById('race-title').textContent = current.trainingName + ' - ' + training.trainingDate;
                 document.getElementById('total-competitors').textContent = current.totalCompetitors;
                 document.getElementById('last-update').textContent = current.lastUpdate;
-                
                 displayResults();
-                
-                // Start polling for updates
                 startPolling();
             } catch (error) {
                 document.getElementById('content').innerHTML = '<div class="no-results">? Chyba: ' + error.message + '</div>';
-                // Retry after 5 seconds
                 setTimeout(loadInitialData, 5000);
             }
         }
@@ -92,54 +83,31 @@
             try {
                 const ts = Date.now();
                 const current = await fetch('data/current.json?' + ts).then(r => r.json());
-                
                 const filesToUpdate = [];
-                
-                // Check which files have been updated
                 for (const [file, timestamp] of Object.entries(current.files || {})) {
                     if (cachedTimestamps[file] !== timestamp) {
                         filesToUpdate.push(file);
                         cachedTimestamps[file] = timestamp;
                     }
                 }
-                
-                // Load updated files
                 if (filesToUpdate.length > 0) {
                     const loadPromises = [];
-                    
                     if (filesToUpdate.includes('training.json')) {
-                        loadPromises.push(
-                            fetch('data/training.json?' + ts).then(r => r.json()).then(data => {
-                                trainingData = data;
-                            })
-                        );
+                        loadPromises.push(fetch('data/training.json?' + ts).then(r => r.json()).then(data => { trainingData = data; }));
                     }
-                    
                     if (filesToUpdate.includes('competitors.json')) {
-                        loadPromises.push(
-                            fetch('data/competitors.json?' + ts).then(r => r.json()).then(data => {
-                                competitorsMap.clear();
-                                data.forEach(c => competitorsMap.set(c.startNumber, c));
-                            })
-                        );
+                        loadPromises.push(fetch('data/competitors.json?' + ts).then(r => r.json()).then(data => {
+                            competitorsMap.clear();
+                            data.forEach(c => competitorsMap.set(c.startNumber, c));
+                        }));
                     }
-                    
                     if (filesToUpdate.includes('results.json')) {
-                        loadPromises.push(
-                            fetch('data/results.json?' + ts).then(r => r.json()).then(data => {
-                                resultsData = data;
-                            })
-                        );
+                        loadPromises.push(fetch('data/results.json?' + ts).then(r => r.json()).then(data => { resultsData = data; }));
                     }
-                    
                     await Promise.all(loadPromises);
-                    
-                    // Update header
                     document.getElementById('race-title').textContent = current.trainingName + ' - ' + trainingData.trainingDate;
                     document.getElementById('total-competitors').textContent = current.totalCompetitors;
                     document.getElementById('last-update').textContent = current.lastUpdate;
-                    
-                    // Refresh display
                     displayResults();
                 }
             } catch (error) {
@@ -148,8 +116,24 @@
         }
         
         function startPolling() {
-            // Check for updates every 5 seconds
             setInterval(checkForUpdates, 5000);
+        }
+        
+        function getRowClass(r) {
+            const status = r.status || 'NotFinished';
+            if (status === 'DNS' || status === 'DNF' || status === 'DSQ') return 'row-' + status.toLowerCase();
+            if (r.isConfirmed) return 'row-confirmed';
+            return 'row-ongoing';
+        }
+        
+        function formatResultTime(r) {
+            const status = r.status || 'NotFinished';
+            if (status === 'DNS') return 'DNS';
+            if (status === 'DNF') return 'DNF';
+            if (status === 'DSQ') return 'DSQ';
+            if (r.totalTime && r.totalTime !== '') return r.totalTime;
+            if (!r.isConfirmed && r.startTime && r.startTime !== '') return '<span class="clock-icon">??</span>';
+            return '-';
         }
         
         function displayResults() {
@@ -157,31 +141,29 @@
             let filtered = currentFilter 
                 ? resultsData.filter(r => r.startNumber.toLowerCase().includes(currentFilter.toLowerCase()))
                 : resultsData;
-            
             if (filtered.length === 0) {
                 container.innerHTML = '<div class="no-results">?? Žádné výsledky</div>';
                 return;
             }
-            
             let html = '<div class="results-container"><table><thead><tr>';
             html += '<th>Start. č.</th><th>Příjmení</th><th>Jméno</th>';
             html += '<th class="col-year">Ročník</th><th class="col-club">Klub</th><th class="col-category">Kategorie</th>';
             html += '<th>Výsl. čas</th><th class="col-start-time">Čas startu</th>';
             html += '</tr></thead><tbody>';
-            
             filtered.forEach(r => {
                 const c = competitorsMap.get(r.startNumber) || {};
-                html += '<tr><td>' + r.startNumber + '</td>';
+                const rowClass = getRowClass(r);
+                html += '<tr class="' + rowClass + '">';
+                html += '<td>' + r.startNumber + '</td>';
                 html += '<td><strong>' + (c.lastName || '') + '</strong></td>';
                 html += '<td>' + (c.firstName || '') + '</td>';
                 html += '<td class="col-year">' + (c.yearOfBirth || '-') + '</td>';
                 html += '<td class="col-club">' + (c.club || '-') + '</td>';
                 html += '<td class="col-category">' + (c.category || '-') + '</td>';
-                html += '<td><strong>' + r.totalTime + '</strong></td>';
+                html += '<td><strong>' + formatResultTime(r) + '</strong></td>';
                 html += '<td class="col-start-time">' + (r.startTime ? r.startTime.substring(0,5) : '-') + '</td>';
                 html += '</tr>';
             });
-            
             html += '</tbody></table></div>';
             container.innerHTML = html;
         }
