@@ -2,9 +2,24 @@
   "trainingId": 1,
   "trainingName": "Skikemp",
   "trainingDate": "2026-01-06",
-  "lastUpdate": "2026-01-07 16:25:16",
-  "totalCompetitors": 6,
+  "lastUpdate": "2026-01-07 16:46:14",
+  "totalCompetitors": 7,
   "results": [
+    {
+      "position": 5,
+      "startNumber": "2",
+      "firstName": "Petr",
+      "lastName": "Svoboda",
+      "yearOfBirth": null,
+      "club": "AC Sparta",
+      "category": "Mu�i",
+      "startTime": "16:45:53.139",
+      "finishTime": "16:45:56.769",
+      "totalTimeMs": 3629,
+      "totalTime": "00:03.62",
+      "status": "NotFinished",
+      "confirmedAt": 30
+    },
     {
       "position": 4,
       "startNumber": "1",
@@ -51,7 +66,7 @@
       "confirmedAt": 27
     },
     {
-      "position": 5,
+      "position": 6,
       "startNumber": "3",
       "firstName": "Marie",
       "lastName": "Dvo��kov�",
@@ -81,7 +96,7 @@
       "confirmedAt": 25
     },
     {
-      "position": 6,
+      "position": 7,
       "startNumber": "1",
       "firstName": "Jan",
       "lastName": "Nov�k",
