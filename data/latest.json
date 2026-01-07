@@ -2,8 +2,8 @@
   "trainingId": 1,
   "trainingName": "Skikemp",
   "trainingDate": "2026-01-06",
-  "lastUpdate": "2026-01-07 17:05:26",
-  "totalCompetitors": 12,
+  "lastUpdate": "2026-01-07 17:09:09",
+  "totalCompetitors": 13,
   "results": [
     {
       "position": 4,
@@ -34,6 +34,21 @@
       "totalTime": "00:20.62",
       "status": "NotFinished",
       "confirmedAt": 35
+    },
+    {
+      "position": 13,
+      "startNumber": "1",
+      "firstName": "Jan",
+      "lastName": "Nov�k",
+      "yearOfBirth": null,
+      "club": "SK B�ci Praha",
+      "category": "Mu�i",
+      "startTime": "17:04:36.645",
+      "finishTime": "17:05:03.592",
+      "totalTimeMs": 26946,
+      "totalTime": "00:26.94",
+      "status": "NotFinished",
+      "confirmedAt": 34
     },
     {
       "position": 2,
