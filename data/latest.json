@@ -2,11 +2,24 @@
   "trainingId": 1,
   "trainingName": "Skikemp",
   "trainingDate": "2026-01-06",
-  "lastUpdate": "2026-01-07 14:31:39",
-  "totalCompetitors": 1,
+  "lastUpdate": "2026-01-07 14:32:41",
+  "totalCompetitors": 2,
   "results": [
     {
       "position": 1,
+      "startNumber": "2",
+      "firstName": "Petr",
+      "lastName": "Svoboda",
+      "club": "AC Sparta",
+      "category": "Mu�i",
+      "startTime": "14:31:34.534",
+      "finishTime": "14:31:37.470",
+      "totalTimeMs": 2935,
+      "totalTime": "00:02.93",
+      "status": "NotFinished"
+    },
+    {
+      "position": 2,
       "startNumber": "1",
       "firstName": "Jan",
       "lastName": "Nov�k",
