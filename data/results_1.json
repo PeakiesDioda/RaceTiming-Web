@@ -2,11 +2,26 @@
   "trainingId": 1,
   "trainingName": "Skikemp",
   "trainingDate": "2026-01-06",
-  "lastUpdate": "2026-01-07 18:37:15",
-  "totalCompetitors": 14,
+  "lastUpdate": "2026-01-07 18:40:34",
+  "totalCompetitors": 15,
   "results": [
     {
-      "position": 12,
+      "position": 8,
+      "startNumber": "1",
+      "firstName": "Lea",
+      "lastName": "Khecková",
+      "yearOfBirth": 2018,
+      "club": "SKI Vyšší Brod",
+      "category": "",
+      "startTime": "18:37:34.949",
+      "finishTime": "18:37:38.206",
+      "totalTimeMs": 3257,
+      "totalTime": "00:03.25",
+      "status": "NotFinished",
+      "confirmedAt": 38
+    },
+    {
+      "position": 13,
       "startNumber": "18",
       "firstName": "Jakub",
       "lastName": "PRŰHER",
@@ -36,7 +51,7 @@
       "confirmedAt": 36
     },
     {
-      "position": 13,
+      "position": 14,
       "startNumber": "2",
       "firstName": "Ondřej",
       "lastName": "Holboj",
@@ -51,7 +66,7 @@
       "confirmedAt": 35
     },
     {
-      "position": 14,
+      "position": 15,
       "startNumber": "1",
       "firstName": "Lea",
       "lastName": "Khecková",
@@ -96,7 +111,7 @@
       "confirmedAt": 32
     },
     {
-      "position": 11,
+      "position": 12,
       "startNumber": "3",
       "firstName": "Antonín",
       "lastName": "ČIHOVSKÝ",
@@ -111,7 +126,7 @@
       "confirmedAt": 31
     },
     {
-      "position": 8,
+      "position": 9,
       "startNumber": "2",
       "firstName": "Ondřej",
       "lastName": "Holboj",
@@ -171,7 +186,7 @@
       "confirmedAt": 27
     },
     {
-      "position": 9,
+      "position": 10,
       "startNumber": "3",
       "firstName": "Antonín",
       "lastName": "ČIHOVSKÝ",
@@ -201,7 +216,7 @@
       "confirmedAt": 25
     },
     {
-      "position": 10,
+      "position": 11,
       "startNumber": "1",
       "firstName": "Lea",
       "lastName": "Khecková",
