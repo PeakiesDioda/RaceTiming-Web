@@ -2,8 +2,8 @@
   "trainingId": 1,
   "trainingName": "Skikemp",
   "trainingDate": "2026-01-06",
-  "lastUpdate": "2026-01-07 13:40:00",
-  "totalCompetitors": 22,
+  "lastUpdate": "2026-01-07 13:40:22",
+  "totalCompetitors": 23,
   "results": [
     {
       "position": 1,
@@ -85,6 +85,19 @@
     },
     {
       "position": 7,
+      "startNumber": "1",
+      "firstName": "Jan",
+      "lastName": "Nov�k",
+      "club": "SK B�ci Praha",
+      "category": "Mu�i",
+      "startTime": "13:40:06.419",
+      "finishTime": "13:40:12.728",
+      "totalTimeMs": 6309,
+      "totalTime": "00:06.30",
+      "status": "NotFinished"
+    },
+    {
+      "position": 8,
       "startNumber": "2",
       "firstName": "Petr",
       "lastName": "Svoboda",
@@ -97,7 +110,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 8,
+      "position": 9,
       "startNumber": "2",
       "firstName": "Petr",
       "lastName": "Svoboda",
@@ -110,7 +123,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 9,
+      "position": 10,
       "startNumber": "1",
       "firstName": "Jan",
       "lastName": "Nov�k",
@@ -123,7 +136,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 10,
+      "position": 11,
       "startNumber": "5",
       "firstName": "Tom�",
       "lastName": "Proch�zka",
@@ -136,7 +149,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 11,
+      "position": 12,
       "startNumber": "1",
       "firstName": "Jan",
       "lastName": "Nov�k",
@@ -149,7 +162,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 12,
+      "position": 13,
       "startNumber": "5",
       "firstName": "Tom�",
       "lastName": "Proch�zka",
@@ -162,7 +175,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 13,
+      "position": 14,
       "startNumber": "2",
       "firstName": "Petr",
       "lastName": "Svoboda",
@@ -175,7 +188,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 14,
+      "position": 15,
       "startNumber": "3",
       "firstName": "Marie",
       "lastName": "Dvo��kov�",
@@ -188,7 +201,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 15,
+      "position": 16,
       "startNumber": "5",
       "firstName": "Tom�",
       "lastName": "Proch�zka",
@@ -201,7 +214,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 16,
+      "position": 17,
       "startNumber": "2",
       "firstName": "Petr",
       "lastName": "Svoboda",
@@ -214,7 +227,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 17,
+      "position": 18,
       "startNumber": "4",
       "firstName": "Jana",
       "lastName": "Novotn�",
@@ -227,7 +240,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 18,
+      "position": 19,
       "startNumber": "3",
       "firstName": "Marie",
       "lastName": "Dvo��kov�",
@@ -240,7 +253,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 19,
+      "position": 20,
       "startNumber": "1",
       "firstName": "Jan",
       "lastName": "Nov�k",
@@ -253,7 +266,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 20,
+      "position": 21,
       "startNumber": "4",
       "firstName": "Jana",
       "lastName": "Novotn�",
@@ -266,7 +279,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 21,
+      "position": 22,
       "startNumber": "3",
       "firstName": "Marie",
       "lastName": "Dvo��kov�",
@@ -279,7 +292,7 @@
       "status": "NotFinished"
     },
     {
-      "position": 22,
+      "position": 23,
       "startNumber": "4",
       "firstName": "Jana",
       "lastName": "Novotn�",
