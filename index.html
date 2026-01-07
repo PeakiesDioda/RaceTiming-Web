@@ -132,7 +132,7 @@
             if (status === 'DNF') return 'DNF';
             if (status === 'DSQ') return 'DSQ';
             if (r.totalTime && r.totalTime !== '') return r.totalTime;
-            if (!r.isConfirmed && r.startTime && r.startTime !== '') return '<span class="clock-icon">??</span>';
+            if (!r.isConfirmed && r.startTime && r.startTime !== '') return '<span class="clock-icon">&#x23F1;</span>';
             return '-';
         }
         
@@ -161,7 +161,7 @@
                 html += '<td class="col-club">' + (c.club || '-') + '</td>';
                 html += '<td class="col-category">' + (c.category || '-') + '</td>';
                 html += '<td><strong>' + formatResultTime(r) + '</strong></td>';
-                html += '<td class="col-start-time">' + (r.startTime ? r.startTime.substring(0,5) : '-') + '</td>';
+                html += '<td class="col-start-time">' + (r.startTime ? r.startTime.substring(0,8) : '&#x23F1;') + '</td>';
                 html += '</tr>';
             });
             html += '</tbody></table></div>';
