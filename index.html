@@ -1,389 +1,294 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RaceTiming - Live Výsledky</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏁</text></svg>">
+    <title>Race Timing - Výsledky</title>
     <style>
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container { 
+            font-family: Arial, sans-serif; 
             max-width: 1400px; 
             margin: 0 auto; 
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 30px;
+            padding: 10px;
+            background-color: #f5f5f5;
         }
         
         h1 { 
-            font-size: 3em; 
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .training-info {
-            font-size: 1.2em;
-            opacity: 0.9;
-            margin-bottom: 5px;
-        }
-        
-        .last-update { 
-            opacity: 0.7; 
-            font-size: 0.95em;
-        }
-        
-        .time-display {
-            background: #000;
-            color: #ff0000;
-            font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 80px;
-            font-weight: bold;
-            text-align: center;
-            padding: 40px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-            letter-spacing: 8px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .time-display::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(180deg, transparent 0%, rgba(255,0,0,0.05) 100%);
-        }
-        
-        .podium {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .podium-place {
-            background: rgba(255,255,255,0.95);
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            color: #333;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transform: translateY(0);
-            transition: transform 0.3s;
-        }
-        
-        .podium-place:hover {
-            transform: translateY(-5px);
-        }
-        
-        .podium-place.gold { 
-            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-            grid-row: 1;
-        }
-        
-        .podium-place.silver { 
-            background: linear-gradient(135deg, #C0C0C0 0%, #999 100%);
-        }
-        
-        .podium-place.bronze { 
-            background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%);
-        }
-        
-        .podium-medal {
-            font-size: 4em;
-            margin-bottom: 10px;
-        }
-        
-        .podium-position {
-            font-size: 2em;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        
-        .podium-name {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .podium-time {
-            font-family: 'Consolas', monospace;
+            color: #333; 
             font-size: 1.8em;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-        
-        .results-section {
-            background: rgba(255,255,255,0.95);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-bottom: 10px;
         }
         
         h2 {
-            color: #667eea;
-            margin-bottom: 20px;
-            font-size: 2em;
+            color: #555;
+            font-size: 1.3em;
+            margin: 10px 0;
         }
         
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-        }
-        
-        thead {
-            background: #667eea;
-            color: white;
-        }
-        
-        th {
+        .info {
+            background: white;
             padding: 15px;
-            text-align: left;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .info p {
+            margin: 5px 0;
+            color: #666;
+        }
+        
+        .filter-container {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .filter-container label {
+            display: block;
+            margin-bottom: 5px;
             font-weight: bold;
-            text-transform: uppercase;
-            font-size: 0.9em;
-            letter-spacing: 1px;
-        }
-        
-        th:first-child {
-            border-top-left-radius: 10px;
-        }
-        
-        th:last-child {
-            border-top-right-radius: 10px;
-        }
-        
-        td {
-            padding: 15px;
             color: #333;
-            border-bottom: 1px solid #eee;
         }
         
-        tr:last-child td {
-            border-bottom: none;
+        .filter-container input {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
         }
         
-        tbody tr {
-            transition: background 0.2s;
+        .filter-container input:focus {
+            outline: none;
+            border-color: #4CAF50;
         }
         
-        tbody tr:hover {
-            background: rgba(102, 126, 234, 0.1);
+        .loading { 
+            text-align: center; 
+            padding: 40px;
+            color: #666;
+            font-size: 1.2em;
         }
         
-        tbody tr:nth-child(even) {
-            background: rgba(0,0,0,0.02);
+        .results-container {
+            background: white;
+            border-radius: 5px;
+            overflow-x: auto;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        table { 
+            width: 100%; 
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+        
+        th, td { 
+            padding: 12px 8px;
+            text-align: left;       
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th { 
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        tr:hover { 
+            background-color: #f5f5f5; 
+        }
+        
+        tr:nth-child(even) {
+            background-color: #fafafa;
         }
         
         .position {
             font-weight: bold;
-            font-size: 1.3em;
-            color: #667eea;
-            width: 60px;
+            color: #4CAF50;
         }
         
-        .start-number {
-            font-weight: bold;
-            color: #764ba2;
-        }
-        
-        .time {
-            font-family: 'Consolas', monospace;
-            font-weight: bold;
-            font-size: 1.1em;
-            color: #333;
-        }
-        
-        .loading {
+        .no-results {
             text-align: center;
-            padding: 50px;
-            font-size: 1.5em;
+            padding: 40px;
             color: #999;
+            font-style: italic;
         }
         
-        .error {
-            background: #f44336;
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            text-align: center;
+        /* Column visibility priorities */
+        .col-start-time { }        /* Hide 4th - Čas startu */
+        .col-club { }              /* Hide 3rd - Klub */
+        .col-category { }          /* Hide 2nd - Kategorie */
+        .col-year { }              /* Hide 1st - Rok narození */
+        
+        /* Tablet - hide start time (1st to hide) */
+        @media (max-width: 1024px) {
+            h1 { font-size: 1.6em; }
+            h2 { font-size: 1.2em; }
+            table { font-size: 14px; min-width: 500px; }
+            th, td { padding: 10px 6px; }
+            
+            .col-start-time {
+                display: none;
+            }
         }
         
+        /* Tablet small - hide club (2nd to hide) */
+        @media (max-width: 900px) {
+            table { min-width: 450px; }
+            .col-club {
+                display: none;
+            }
+        }
+        
+        /* Mobile - hide category (3rd to hide) */
         @media (max-width: 768px) {
-            h1 { font-size: 2em; }
-            .time-display { font-size: 48px; padding: 20px; }
-            .podium { grid-template-columns: 1fr; }
-            th, td { padding: 10px; font-size: 0.9em; }
-            table { font-size: 0.85em; }
+            h1 { font-size: 1.5em; }
+            h2 { font-size: 1.1em; }
+            table { font-size: 13px; min-width: 400px; }
+            th, td { padding: 8px 4px; }
+            
+            .col-category {
+                display: none;
+            }
         }
         
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-        
-        .live-indicator {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            background: #ff0000;
-            border-radius: 50%;
-            margin-right: 8px;
-            animation: pulse 2s infinite;
+        /* Mobile small - hide year of birth (4th to hide) */
+        @media (max-width: 600px) {
+            body { padding: 5px; }
+            h1 { font-size: 1.3em; }
+            table { font-size: 12px; min-width: 320px; }
+            th, td { padding: 6px 3px; }
+            
+            .col-year {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🏁 RaceTiming - Live Výsledky</h1>
-            <div class="training-info" id="trainingInfo">Načítání...</div>
-            <div class="last-update">
-                <span class="live-indicator"></span>
-                <span id="lastUpdate">Načítání...</span>
-            </div>
-        </header>
-        
-        <div class="time-display" id="lastTime">--:--:--</div>
-        
-        <div class="podium" id="podium" style="display: none;">
-            <!-- Podium will be inserted here -->
-        </div>
-        
-        <div class="results-section">
-            <h2>📊 Kompletní Výsledky</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Pořadí</th>
-                        <th>St. č.</th>
-                        <th>Jméno</th>
-                        <th>Příjmení</th>
-                        <th>Klub</th>
-                        <th>Kategorie</th>
-                        <th>Čas</th>
-                    </tr>
-                </thead>
-                <tbody id="results">
-                    <tr><td colspan="7" class="loading">Načítání výsledků...</td></tr>
-                </tbody>
-            </table>
-        </div>
+    <h1>?? Race Timing - Výsledky</h1>
+    
+    <div class="info">
+        <h2 id="race-title"></h2>
+        <p>?? <strong>Celkem závodníků:</strong> <span id="total-competitors">0</span></p>
+        <p>?? <strong>Poslední aktualizace:</strong> <span id="last-update">-</span></p>
     </div>
     
+    <div class="filter-container">
+        <label for="filter-input">?? Hledat podle startovního čísla:</label>
+        <input 
+            type="text" 
+            id="filter-input" 
+            placeholder="Zadejte startovní číslo..."
+            autocomplete="off">
+    </div>
+    
+    <div id="content" class="loading">Načítání výsledků...</div>
+    
     <script>
-        let currentData = null;
-        let errorCount = 0;
+        let allResults = [];
+        let currentFilter = '';
         
         async function loadResults() {
             try {
                 const response = await fetch('data/latest.json?' + Date.now());
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}`);
-                }
-                
                 const data = await response.json();
-                currentData = data;
-                errorCount = 0;
                 
-                // Update training info
-                document.getElementById('trainingInfo').textContent = 
-                    `${data.trainingName} - ${formatDate(data.trainingDate)} (${data.totalCompetitors} závodníků)`;
+                allResults = data.results || [];
                 
-                // Update last update time
-                document.getElementById('lastUpdate').textContent = 
-                    `Aktualizováno: ${data.lastUpdate}`;
+                // Update header info
+                document.getElementById('race-title').textContent = data.trainingName + ' - ' + data.trainingDate;
+                document.getElementById('total-competitors').textContent = data.totalCompetitors;
+                document.getElementById('last-update').textContent = data.lastUpdate;
                 
-                // Update last time display
-                if (data.results.length > 0) {
-                    document.getElementById('lastTime').textContent = data.results[0].totalTime;
-                }
-                
-                // Show podium if we have 3+ competitors
-                if (data.results.length >= 3) {
-                    displayPodium(data.results);
-                }
-                
-                // Update results table
-                const tbody = document.getElementById('results');
-                tbody.innerHTML = data.results.map(r => `
-                    <tr>
-                        <td class="position">${r.position}.</td>
-                        <td class="start-number">${r.startNumber}</td>
-                        <td>${r.firstName}</td>
-                        <td><strong>${r.lastName}</strong></td>
-                        <td>${r.club}</td>
-                        <td>${r.category}</td>
-                        <td class="time">${r.totalTime}</td>
-                    </tr>
-                `).join('');
-                
+                // Display results
+                displayResults();
             } catch (error) {
-                console.error('Error loading results:', error);
-                errorCount++;
-                
-                if (errorCount > 3) {
-                    document.getElementById('results').innerHTML = 
-                        '<tr><td colspan="7" class="loading">Chyba při načítání výsledků. Zkontrolujte připojení.</td></tr>';
-                }
+                document.getElementById('content').innerHTML = 
+                    '<div class="no-results">? Chyba při načítání výsledků: ' + error.message + '</div>';
             }
         }
         
-        function displayPodium(results) {
-            const medals = ['🥇', '🥈', '🥉'];
-            const classes = ['gold', 'silver', 'bronze'];
-            
-            const podiumHtml = results.slice(0, 3).map((r, i) => `
-                <div class="podium-place ${classes[i]}">
-                    <div class="podium-medal">${medals[i]}</div>
-                    <div class="podium-position">${r.position}. místo</div>
-                    <div class="podium-name">${r.firstName} ${r.lastName}</div>
-                    <div style="font-size: 1.1em; margin-top: 5px;">${r.startNumber} | ${r.club}</div>
-                    <div class="podium-time">${r.totalTime}</div>
-                </div>
-            `).join('');
-            
-            const podium = document.getElementById('podium');
-            podium.innerHTML = podiumHtml;
-            podium.style.display = 'grid';
+        function formatStartTime(startTime) {
+            if (!startTime) return '-';
+            // Extract hours and minutes from HH:mm:ss.fff format
+            const parts = startTime.split(':');
+            if (parts.length >= 2) {
+                return parts[0] + ':' + parts[1];
+            }
+            return startTime;
         }
         
-        function formatDate(dateStr) {
-            const date = new Date(dateStr);
-            return date.toLocaleDateString('cs-CZ', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
+        function displayResults() {
+            const container = document.getElementById('content');
+            
+            // Filter results by start number if filter is active
+            let filteredResults = allResults;
+            if (currentFilter) {
+                filteredResults = allResults.filter(r => 
+                    r.startNumber.toLowerCase().includes(currentFilter.toLowerCase())
+                );
+            }
+            
+            if (filteredResults.length === 0) {
+                container.innerHTML = '<div class="no-results">?? Žádné výsledky nenalezeny</div>';
+                return;
+            }
+            
+            let html = '<div class="results-container"><table>';
+            html += '<thead><tr>';
+            html += '<th>Start. č.</th>';
+            html += '<th>Příjmení</th>';
+            html += '<th>Jméno</th>';
+            html += '<th class="col-year">Ročník</th>';
+            html += '<th class="col-club">Klub</th>';
+            html += '<th class="col-category">Kategorie</th>';
+            html += '<th>Výsl. čas</th>';
+            html += '<th class="col-start-time">Čas startu</th>';
+            html += '</tr></thead><tbody>';
+            
+            filteredResults.forEach(r => {
+                html += '<tr>';
+                html += '<td>' + r.startNumber + '</td>';
+                html += '<td><strong>' + r.lastName + '</strong></td>';
+                html += '<td>' + r.firstName + '</td>';
+                html += '<td class="col-year">' + (r.yearOfBirth || '-') + '</td>';
+                html += '<td class="col-club">' + (r.club || '-') + '</td>';
+                html += '<td class="col-category">' + (r.category || '-') + '</td>';
+                html += '<td><strong>' + r.totalTime + '</strong></td>';
+                html += '<td class="col-start-time">' + formatStartTime(r.startTime) + '</td>';
+                html += '</tr>';
             });
+            
+            html += '</tbody></table></div>';
+            container.innerHTML = html;
         }
         
-        // Auto-refresh every 5 seconds
-        setInterval(loadResults, 5000);
+        // Filter event listener
+        document.getElementById('filter-input').addEventListener('input', (e) => {
+            currentFilter = e.target.value.trim();
+            displayResults();
+        });
         
         // Initial load
         loadResults();
+        
+        // Auto-refresh every 30 seconds
+        setInterval(loadResults, 30000);
     </script>
 </body>
 </html>

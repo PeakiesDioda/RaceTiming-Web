@@ -2,11 +2,26 @@
   "trainingId": 1,
   "trainingName": "Skikemp",
   "trainingDate": "2026-01-06",
-  "lastUpdate": "2026-01-07 16:58:00",
-  "totalCompetitors": 8,
+  "lastUpdate": "2026-01-07 16:59:26",
+  "totalCompetitors": 9,
   "results": [
     {
-      "position": 8,
+      "position": 1,
+      "startNumber": "4",
+      "firstName": "Jana",
+      "lastName": "Novotn�",
+      "yearOfBirth": null,
+      "club": "TJ Sokol",
+      "category": "�eny",
+      "startTime": "16:58:43.510",
+      "finishTime": "16:58:44.614",
+      "totalTimeMs": 1103,
+      "totalTime": "00:01.10",
+      "status": "NotFinished",
+      "confirmedAt": 32
+    },
+    {
+      "position": 9,
       "startNumber": "3",
       "firstName": "Marie",
       "lastName": "Dvo��kov�",
@@ -21,7 +36,7 @@
       "confirmedAt": 31
     },
     {
-      "position": 5,
+      "position": 6,
       "startNumber": "2",
       "firstName": "Petr",
       "lastName": "Svoboda",
@@ -36,7 +51,7 @@
       "confirmedAt": 30
     },
     {
-      "position": 4,
+      "position": 5,
       "startNumber": "1",
       "firstName": "Jan",
       "lastName": "Nov�k",
@@ -51,7 +66,7 @@
       "confirmedAt": 29
     },
     {
-      "position": 2,
+      "position": 3,
       "startNumber": "5",
       "firstName": "Tom�",
       "lastName": "Proch�zka",
@@ -66,7 +81,7 @@
       "confirmedAt": 28
     },
     {
-      "position": 1,
+      "position": 2,
       "startNumber": "4",
       "firstName": "Jana",
       "lastName": "Novotn�",
@@ -81,7 +96,7 @@
       "confirmedAt": 27
     },
     {
-      "position": 6,
+      "position": 7,
       "startNumber": "3",
       "firstName": "Marie",
       "lastName": "Dvo��kov�",
@@ -96,7 +111,7 @@
       "confirmedAt": 26
     },
     {
-      "position": 3,
+      "position": 4,
       "startNumber": "2",
       "firstName": "Petr",
       "lastName": "Svoboda",
@@ -111,7 +126,7 @@
       "confirmedAt": 25
     },
     {
-      "position": 7,
+      "position": 8,
       "startNumber": "1",
       "firstName": "Jan",
       "lastName": "Nov�k",
