@@ -75,11 +75,11 @@
             .col-year { display: none; } /* Priority 4 - hide rok - základní zobrazení: Bib, Příjmení, Jméno, Čas */
         }
         
-        /* On very small screens (< 400px), keep only: Bib, Lastname, Time */
+        /* On very small screens (< 400px), keep: Bib, Lastname, Firstname, Time */
         @media (max-width: 400px) {
             table { font-size: 11px; }
             th, td { padding: 6px 3px; }
-            .col-firstname { display: none; } /* Hide firstname on smallest screens */
+            /* Jméno zůstává viditelné i na nejmenších obrazovkách */
         }
     </style>
 </head>
