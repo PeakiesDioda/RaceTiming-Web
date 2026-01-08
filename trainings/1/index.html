@@ -41,6 +41,7 @@
         @media (max-width: 900px) { .col-club { display: none; } }
         @media (max-width: 768px) { table { font-size: 13px; } .col-category { display: none; } }
         @media (max-width: 600px) { table { font-size: 12px; } .col-year { display: none; } }
+        @media (max-width: 500px) { .col-position-all, .col-position-cat { display: none; } }
     </style>
 </head>
 <body>
@@ -174,6 +175,7 @@
             html += '<th>Start. č.</th><th>Příjmení</th><th>Jméno</th>';
             html += '<th class="col-year">Ročník</th><th class="col-club">Klub</th><th class="col-category">Kategorie</th>';
             html += '<th>Výsl. čas</th><th class="col-start-time">Čas startu</th>';
+            html += '<th class="col-position-all"># vše</th><th class="col-position-cat"># kat</th>';
             html += '</tr></thead><tbody>';
             filtered.forEach(r => {
                 const c = competitorsMap.get(r.startNumber) || {};
@@ -187,6 +189,8 @@
                 html += '<td class="col-category">' + (c.category || '-') + '</td>';
                 html += '<td><strong>' + formatResultTime(r) + '</strong></td>';
                 html += '<td class="col-start-time">' + (r.startTime ? r.startTime.substring(0,8) : '&#9201;') + '</td>';
+                html += '<td class="col-position-all">' + (r.position > 0 ? r.position + '.' : '-') + '</td>';
+                html += '<td class="col-position-cat">' + (r.positionCat > 0 ? r.positionCat + '.' : '-') + '</td>';
                 html += '</tr>';
             });
             html += '</tbody></table></div></div>';
