@@ -42,7 +42,7 @@
         .col-firstname { min-width: 70px; }
         .col-year { width: 60px; text-align: center; }
         .col-club { min-width: 90px; }
-        .col-category { width: 55px; text-align: center; }
+        .col-category { width: 55px, text-align: center; }
         .col-time { width: 80px; text-align: center; font-variant-numeric: tabular-nums; }
         .col-start-time { width: 75px; text-align: center; font-variant-numeric: tabular-nums; }
         .col-position-all { width: 50px; text-align: center; }
@@ -69,11 +69,13 @@
         @media (max-width: 600px) { 
             table { font-size: 12px; }
             th, td { padding: 8px 4px; }
-            .col-position-cat { display: none; } /* Priority 5b - keep position-all */
+            .col-position-cat { display: none; } /* Priority 5b - hide category position */
+        }
+        @media (max-width: 550px) { 
+            .col-position-all { display: none; } /* Priority 5a - hide overall position */
         }
         @media (max-width: 500px) { 
-            .col-firstname { display: none; } /* Priority 3 - keep lastname */
-            .col-position-all { display: none; } /* Priority 5a */
+            .col-firstname { display: none; } /* Priority 3 - hide firstname but keep lastname */
         }
         
         /* On very small screens (< 400px), keep only: Bib, Lastname, Time */
