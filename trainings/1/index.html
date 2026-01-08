@@ -57,31 +57,29 @@
             .col-start-time { display: none; } /* Priority 9 - hide first */
         }
         @media (max-width: 900px) { 
-            .col-club { display: none; } /* Priority 7 */
+            .col-position-cat { display: none; } /* Priority 8 - hide # kat */
         }
-        @media (max-width: 768px) { 
+        @media (max-width: 800px) { 
             table { font-size: 13px; }
-            .col-category { display: none; } /* Priority 8 */
+            .col-position-all { display: none; } /* Priority 7 - hide # vše */
         }
         @media (max-width: 700px) { 
-            .col-year { display: none; } /* Priority 6 */
+            .col-club { display: none; } /* Priority 6 - hide klub */
         }
         @media (max-width: 600px) { 
             table { font-size: 12px; }
             th, td { padding: 8px 4px; }
-            .col-position-cat { display: none; } /* Priority 5b - hide category position */
-        }
-        @media (max-width: 550px) { 
-            .col-position-all { display: none; } /* Priority 5a - hide overall position */
+            .col-category { display: none; } /* Priority 5 - hide kategorie */
         }
         @media (max-width: 500px) { 
-            .col-firstname { display: none; } /* Priority 3 - hide firstname but keep lastname */
+            .col-year { display: none; } /* Priority 4 - hide rok - základní zobrazení: Bib, Příjmení, Jméno, Čas */
         }
         
         /* On very small screens (< 400px), keep only: Bib, Lastname, Time */
         @media (max-width: 400px) {
             table { font-size: 11px; }
             th, td { padding: 6px 3px; }
+            .col-firstname { display: none; } /* Hide firstname on smallest screens */
         }
     </style>
 </head>
