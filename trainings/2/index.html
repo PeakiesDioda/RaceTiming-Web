@@ -16,7 +16,7 @@
         .info-update { color: #999; font-size: 0.9em; }
         .filter-container { background: white; padding: 15px; border-radius: 5px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 10px; }
         .filter-container label { margin: 0; font-weight: bold; color: #333; white-space: nowrap; }
-        .filter-container input { flex: 1; max-width: 100px; padding: 10px; border: 2px solid #ddd; border-radius: 5px; font-size: 16px; }
+        .filter-container input { flex: 1; max-width: 300px; padding: 10px; border: 2px solid #ddd; border-radius: 5px; font-size: 16px; }
         .filter-container input:focus { outline: none; border-color: #4CAF50; }
         .loading { text-align: center; padding: 5px 0; color: #666; font-size: 1.2em; }
         .results-container { background: white; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); overflow: hidden; }
@@ -94,8 +94,8 @@
         <div class="info-update">&#128338; Aktualizováno: <span id="last-update">-</span></div>
     </div>
     <div class="filter-container">
-        <label for="filter-input">&#128269; Filtr:</label>
-        <input type="text" id="filter-input" placeholder="Bib..." autocomplete="off">
+        <label for="filter-input">&#128269; Bib:</label>
+        <input type="text" id="filter-input" placeholder="např. 5, 12, 23" autocomplete="off" inputmode="numeric">
     </div>
     <div id="content" class="loading">Načítání výsledků...</div>
     <script>
@@ -201,11 +201,34 @@
             return '-';
         }
         
+        function parseFilterInput(filterText) {
+            // Parse comma or space separated bib numbers
+            if (!filterText || filterText.trim() === '') return [];
+            
+            // Split by comma or space, trim each value, filter out empty strings
+            const bibNumbers = filterText
+                .split(/[,\s]+/)
+                .map(s => s.trim())
+                .filter(s => s !== '');
+            
+            return bibNumbers;
+        }
+        
         function displayResults() {
             const container = document.getElementById('content');
-            let filtered = currentFilter 
-                ? resultsData.filter(r => r.startNumber.toLowerCase().includes(currentFilter.toLowerCase()))
-                : resultsData;
+            let filtered = resultsData;
+            
+            // Apply filter if present
+            if (currentFilter) {
+                const bibNumbers = parseFilterInput(currentFilter);
+                if (bibNumbers.length > 0) {
+                    // Filter by exact match on startNumber
+                    filtered = resultsData.filter(r => 
+                        bibNumbers.some(bib => r.startNumber === bib)
+                    );
+                }
+            }
+            
             if (filtered.length === 0) {
                 container.innerHTML = '<div class="no-results">&#10060; Žádné výsledky</div>';
                 return;
@@ -219,8 +242,8 @@
             html += '<th class="col-category">Kat</th>';
             html += '<th class="col-time">Čas</th>';
             html += '<th class="col-start-time">Start</th>';
-            html += '<th class="col-position-all"># vše</th>';
-            html += '<th class="col-position-cat"># kat</th>';
+            html += '<th class="col-position-all">#celk</th>';
+            html += '<th class="col-position-cat">#kat</th>';
             html += '</tr></thead><tbody>';
             filtered.forEach(r => {
                 const c = competitorsMap.get(r.startNumber) || {};
